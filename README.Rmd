@@ -1,0 +1,59 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# pwrcontour
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of pwrcontour is to present power analyses in which it is possible to evaluate power for numerous hypothetical effect sizes at once. This makes it easier to communicate the fact that power is a calibration for different potential contingencies of the true size of the effect of interest.  This is based on the tables and figures created by Richard Morey in the jamovi jpower module.
+
+This package is still in alpha, and more features will likely be added at a later point.
+
+## Installation
+
+You can install the released version of pwrcontour from Github with:
+
+``` r
+remotes::install_github("mathesong/pwrcontour")
+```
+
+## Example
+
+The main functions are simply for plotting power contours, or examining power tables, based around the syntax of the functions in the `pwr` package.
+
+### Correlations
+
+```{r example_r}
+library(pwrcontour)
+pwr.r.test.contour(5, 100, 0.1, 0.7)
+pwr.r.test.table(25)
+```
+
+### T-tests
+
+```{r example_t}
+pwr.t.test.contour(5, 100, 0.1, 1)
+pwr.t.test.table(25)
+```
+
+
+The package also makes it possible to present these figures in the raw units of analysis. For example, if we calculate that a 10% change is equivalent to a Cohen's d of 1, we can incorporate this into the figures or tables.
+
+```{r example_t_custom}
+pwr.t.test.contour(5, 100, 1, 10, d_unitconversion = 10, d_units = "%")
+pwr.t.test.table(25, d_unitconversion = 10, d_units = "%")
+```
+

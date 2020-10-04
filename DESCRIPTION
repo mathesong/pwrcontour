@@ -1,0 +1,26 @@
+Package: pwrcontour
+Title: Power Contours And Tables For Different Hypothetical Effect Sizes
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Granville",
+           family = "Matheson",
+           role = c("aut", "cre"),
+           email = "mathesong@gmail.com",
+           comment = c(ORCID = "0000-0002-5646-4547"))
+Description: This package allows users to display power analyses for a range 
+    of different hypothetical effect sizes. This emphasises the unknown nature of
+    the true effect size, and allows more effective communication of power analysis
+    as a calibration of a study for various contingencies. This based on the charts
+    by Richard Morey in the Jamovi jpower module.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    pwr,
+    purrr,
+    tibble,
+    knitr,
+    ggplot2,
+    viridis
