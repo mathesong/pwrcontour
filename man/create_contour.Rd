@@ -9,8 +9,8 @@ create_contour(
   y,
   pwr,
   pwrcolours = seq(0, 1, by = 0.1),
-  xlab,
-  ylab,
+  xlab = "Sample size",
+  ylab = "Hypothetical effect size",
   pwrbands = c(0.5, 0.8, 0.95),
   alpha = 0.6
 )
