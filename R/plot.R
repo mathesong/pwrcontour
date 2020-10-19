@@ -22,7 +22,9 @@
 #' vals <- pwrcontour:::pwr.t.test_contourcalc(5, 50, 0.3, 0.7)
 #' create_contour(vals$n, vals$ES, vals$power, xlab="x", ylab="y")
 create_contour <- function(x, y, pwr, pwrcolours = seq(0,1, by=0.1),
-                           xlab, ylab, pwrbands = c(0.5, 0.8, 0.95), alpha=0.6) {
+                           xlab = "Sample size",
+                           ylab = "Hypothetical effect size",
+                           pwrbands = c(0.5, 0.8, 0.95), alpha=0.6) {
 
   pwrcolours <- pwrcolours[order(pwrcolours)]
 
