@@ -133,82 +133,82 @@ h2p2 <- function(h, p1) {
 
 
 
-pwr.eq.t.test_contourcalc <- function(nmin, nmax, dmin, dmax,
-                                   sig.level=0.05,
-                                   type = c("two.sample", "one.sample", "paired")) {
-
-
-  type <- match.arg(type)
-
-  contour_length <- 100
-
-  # N contour
-
-  if( (nmax - nmin) > contour_length) {
-    nseq <- seq(nmin, nmax, length.out = contour_length)
-  } else {
-    nseq <- seq(nmin, nmax, by = 1)
-  }
-
-  # D contour
-  dseq <- seq(dmin, dmax, length.out=contour_length)
-
-  # Creating the data
-  pwr_contours <- expand.grid(n = nseq, ES=dseq)
-
-  if(type == "two.sample") {
-    pwr_contours$power <- purrr::map2_dbl(pwr_contours$n, pwr_contours$ES,
-                                ~quiet(TOSTER::powerTOSTtwo(N = .x,
-                                                          low_eqbound_d = .y*-1,
-                                                          high_eqbound_d = .y,
-                                                          alpha = sig.level) ))
-  } else if(type == "paired") {
-    pwr_contours$power <- purrr::map2_dbl(pwr_contours$n, pwr_contours$ES,
-                             ~quiet(TOSTER::powerTOSTpaired(N = .x,
-                                                         low_eqbound_dz = .y*-1,
-                                                         high_eqbound_dz = .y,
-                                                         alpha = sig.level) ))
-  } else if(type == "one.sample") {
-    pwr_contours$power <- purrr::map2_dbl(pwr_contours$n, pwr_contours$ES,
-                                          ~quiet(TOSTER::powerTOSTone(N = .x,
-                                                                         low_eqbound_d = .y*-1,
-                                                                         high_eqbound_d = .y,
-                                                                         alpha = sig.level) ))
-  }
-
-  return(pwr_contours)
-
-}
-
-
-pwr.eq.r.test_contourcalc <- function(nmin, nmax, rmin, rmax,
-                                   sig.level=0.05) {
-
-  contour_length <- 100
-
-  # N contour
-
-  if( (nmax - nmin) > contour_length) {
-    nseq <- seq(nmin, nmax, length.out = contour_length)
-  } else {
-    nseq <- seq(nmin, nmax, by = 1)
-  }
-
-  # r contour
-  rseq <- seq(rmin, rmax, length.out=contour_length)
-
-  # Creating the data
-  pwr_contours <- expand.grid(n = nseq, ES=rseq)
-
-  pwr_contours$power <- purrr::map2_dbl(pwr_contours$n, pwr_contours$ES,
-                                        ~quiet(TOSTER::powerTOSTr(N = .x,
-                                                      low_eqbound_r = .y*-1,
-                                                      high_eqbound_r = .y,
-                                                      alpha = sig.level) ))
-
-  return(pwr_contours)
-
-}
+# pwr.eq.t.test_contourcalc <- function(nmin, nmax, dmin, dmax,
+#                                    sig.level=0.05,
+#                                    type = c("two.sample", "one.sample", "paired")) {
+#
+#
+#   type <- match.arg(type)
+#
+#   contour_length <- 100
+#
+#   # N contour
+#
+#   if( (nmax - nmin) > contour_length) {
+#     nseq <- seq(nmin, nmax, length.out = contour_length)
+#   } else {
+#     nseq <- seq(nmin, nmax, by = 1)
+#   }
+#
+#   # D contour
+#   dseq <- seq(dmin, dmax, length.out=contour_length)
+#
+#   # Creating the data
+#   pwr_contours <- expand.grid(n = nseq, ES=dseq)
+#
+#   if(type == "two.sample") {
+#     pwr_contours$power <- purrr::map2_dbl(pwr_contours$n, pwr_contours$ES,
+#                                 ~quiet(TOSTER::powerTOSTtwo(N = .x,
+#                                                           low_eqbound_d = .y*-1,
+#                                                           high_eqbound_d = .y,
+#                                                           alpha = sig.level) ))
+#   } else if(type == "paired") {
+#     pwr_contours$power <- purrr::map2_dbl(pwr_contours$n, pwr_contours$ES,
+#                              ~quiet(TOSTER::powerTOSTpaired(N = .x,
+#                                                          low_eqbound_dz = .y*-1,
+#                                                          high_eqbound_dz = .y,
+#                                                          alpha = sig.level) ))
+#   } else if(type == "one.sample") {
+#     pwr_contours$power <- purrr::map2_dbl(pwr_contours$n, pwr_contours$ES,
+#                                           ~quiet(TOSTER::powerTOSTone(N = .x,
+#                                                                          low_eqbound_d = .y*-1,
+#                                                                          high_eqbound_d = .y,
+#                                                                          alpha = sig.level) ))
+#   }
+#
+#   return(pwr_contours)
+#
+# }
+#
+#
+# pwr.eq.r.test_contourcalc <- function(nmin, nmax, rmin, rmax,
+#                                    sig.level=0.05) {
+#
+#   contour_length <- 100
+#
+#   # N contour
+#
+#   if( (nmax - nmin) > contour_length) {
+#     nseq <- seq(nmin, nmax, length.out = contour_length)
+#   } else {
+#     nseq <- seq(nmin, nmax, by = 1)
+#   }
+#
+#   # r contour
+#   rseq <- seq(rmin, rmax, length.out=contour_length)
+#
+#   # Creating the data
+#   pwr_contours <- expand.grid(n = nseq, ES=rseq)
+#
+#   pwr_contours$power <- purrr::map2_dbl(pwr_contours$n, pwr_contours$ES,
+#                                         ~quiet(TOSTER::powerTOSTr(N = .x,
+#                                                       low_eqbound_r = .y*-1,
+#                                                       high_eqbound_r = .y,
+#                                                       alpha = sig.level) ))
+#
+#   return(pwr_contours)
+#
+# }
 
 
 

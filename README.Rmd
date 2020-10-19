@@ -18,9 +18,15 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of pwrcontour is to present power analyses in which it is possible to evaluate power for numerous hypothetical effect sizes at once. This makes it easier to communicate the fact that power is a calibration for different potential contingencies of the true size of the effect of interest.  This is based on the tables and figures created by Richard Morey in the jamovi jpower module.
+The goal of pwrcontour is to present power analyses in which it is
+possible to evaluate power for numerous hypothetical effect sizes at
+once. This makes it easier to communicate the fact that power is a
+calibration for different potential contingencies of the true size of
+the effect of interest. This is based on the tables and figures created
+by Richard Morey in the jamovi jpower module.
 
-This package is still in alpha, and more features will likely be added at a later point.
+This package is still in alpha, and more features will likely be added
+at a later point.
 
 ## Installation
 
@@ -32,22 +38,44 @@ remotes::install_github("mathesong/pwrcontour")
 
 ## Example
 
-The main functions are simply for plotting power contours, or examining power tables, based around the syntax of the functions in the `pwr` package.
+The main functions are simply for plotting power contours, or examining
+power tables, based around the syntax of the functions in the `pwr`
+package.
 
-```{r example}
+### Correlations
+
+```{r example_r}
 library(pwrcontour)
-pwr.t.test.contour(5, 100, 0.1, 1)
-pwr.t.test.table(25)
+
+pwr.r.test.contour(nmin = 5, nmax = 100, rmin = 0.1, rmax = 0.7)
+pwr.r.test.table(n = 25)
 ```
 
-or for correlations
+### T-tests
 
-```{r example}
-pwr.r.test.contour(5, 100, 0.1, 0.7)
-pwr.r.test.table(25)
+```{r example_t}
+pwr.t.test.contour(nmin = 5, nmax = 100, esmin = 0.1, esmax = 1)
+pwr.t.test.table(n = 25)
 ```
-
 
 This package also makes it possible to present these figures in the raw units of analysis. For example, if we know that a 10% change is equivalent to a Cohen's d of 1, we can incorporate this into the figure.
 
+
+```{r example_t2}
+pwr.t.test.contour(nmin = 5, nmax = 100, esmin = 1, esmax = 10, 
+                   d_unitconversion = 10, d_units = "%")
+pwr.t.test.table(25, d_unitconversion = 10, d_units = "%")
+```
+
+
+### Proportion tests
+
+
+Then there's also proportion tests. I decided to discard the Cohen's h, as this feels like it complicates things unnecessarily. So we set up a proportion to compare to instead, called `propcomp`
+
+```{r example_prop}
+pwr.prop.test.contour(nmin = 5, nmax = 100, propmin = 0.01, propmax = 0.99, 
+                      propcomp = 0.75)
+pwr.prop.test.table(n=75, propcomp=0.75)
+```
 
